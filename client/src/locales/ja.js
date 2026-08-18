@@ -13,6 +13,7 @@ export default {
   // Dashboard
   dashboard: {
     title: '概要',
+    description: '注文、在庫、フルフィルメント実績の監視',
     kpi: {
       title: '主要業績評価指標',
       inventoryTurnover: '在庫回転率',

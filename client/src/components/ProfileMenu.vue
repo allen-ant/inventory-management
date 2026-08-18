@@ -118,82 +118,93 @@ const handleLogout = () => {
 <style scoped>
 .profile-menu {
   position: relative;
+  width: 100%;
 }
 
 .profile-button {
+  width: 100%;
   display: flex;
   align-items: center;
-  gap: 0.625rem;
-  padding: 0.5rem 0.875rem;
-  background: white;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
+  gap: var(--sp-3);
+  padding: var(--sp-2) var(--sp-3);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background-color 0.15s ease;
   font-family: inherit;
+  text-align: left;
 }
 
 .profile-button:hover {
-  background: #f8fafc;
-  border-color: #cbd5e1;
+  background: var(--line-soft);
 }
 
 .avatar {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
-  color: white;
+  background: var(--accent);
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 600;
-  font-size: 0.75rem;
+  font-size: 0.688rem;
   letter-spacing: 0.025em;
+  flex-shrink: 0;
 }
 
 .profile-name {
+  flex: 1;
   font-size: 0.875rem;
   font-weight: 500;
-  color: #0f172a;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .chevron {
-  color: #64748b;
+  color: var(--muted);
   transition: transform 0.2s ease;
+  flex-shrink: 0;
 }
 
 .chevron-open {
   transform: rotate(180deg);
 }
 
+/* Popover opens to the RIGHT of the sidebar so the rail doesn't clip it downward */
 .dropdown-menu {
   position: absolute;
-  top: calc(100% + 0.5rem);
-  right: 0;
+  left: calc(100% + 8px);
+  bottom: 0;
   min-width: 280px;
-  background: white;
-  border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  /* bottom-anchored menu grows upward — cap it so short viewports scroll instead of clipping */
+  max-height: calc(100vh - 16px);
+  overflow-y: auto;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
   z-index: 1000;
-  overflow: hidden;
 }
 
 .dropdown-header {
-  padding: 1rem;
+  padding: var(--sp-4);
   display: flex;
-  gap: 0.875rem;
+  gap: var(--sp-3);
   align-items: center;
-  background: #f8fafc;
+  background: var(--bg);
 }
 
 .avatar-large {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
-  color: white;
+  background: var(--accent);
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -210,14 +221,14 @@ const handleLogout = () => {
 
 .user-name {
   font-weight: 600;
-  color: #0f172a;
+  color: var(--ink);
   font-size: 0.938rem;
-  margin-bottom: 0.25rem;
+  margin-bottom: var(--sp-1);
 }
 
 .user-email {
   font-size: 0.813rem;
-  color: #64748b;
+  color: var(--muted);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -225,16 +236,16 @@ const handleLogout = () => {
 
 .dropdown-divider {
   height: 1px;
-  background: #e2e8f0;
-  margin: 0.5rem 0;
+  background: var(--line);
+  margin: var(--sp-2) 0;
 }
 
 .dropdown-item {
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem 1rem;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
   background: none;
   border: none;
   text-align: left;
@@ -243,15 +254,15 @@ const handleLogout = () => {
   font-family: inherit;
   font-size: 0.875rem;
   font-weight: 500;
-  color: #334155;
+  color: var(--text);
 }
 
 .dropdown-item:hover {
-  background: #f8fafc;
+  background: var(--line-soft);
 }
 
 .dropdown-item svg {
-  color: #64748b;
+  color: var(--muted);
   flex-shrink: 0;
 }
 
@@ -269,13 +280,45 @@ const handleLogout = () => {
 
 .task-badge {
   margin-left: auto;
-  background: #2563eb;
-  color: white;
+  background: var(--accent);
+  color: #fff;
   font-size: 0.75rem;
   font-weight: 600;
-  padding: 0.125rem 0.5rem;
-  border-radius: 12px;
+  padding: 2px var(--sp-2);
+  border-radius: 999px;
   min-width: 20px;
   text-align: center;
+}
+
+/* Collapsed rail: avatar-only, centered */
+.app-shell.collapsed .profile-menu {
+  width: auto;
+}
+
+.app-shell.collapsed .profile-button {
+  justify-content: center;
+  padding: var(--sp-2);
+}
+
+.app-shell.collapsed .profile-name,
+.app-shell.collapsed .chevron {
+  display: none;
+}
+
+/* Narrow viewports force the same rail layout */
+@media (max-width: 1000px) {
+  .profile-menu {
+    width: auto;
+  }
+
+  .profile-button {
+    justify-content: center;
+    padding: var(--sp-2);
+  }
+
+  .profile-name,
+  .chevron {
+    display: none;
+  }
 }
 </style>
