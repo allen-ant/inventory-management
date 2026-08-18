@@ -2,6 +2,8 @@
   <div class="language-switcher">
     <button
       class="language-button"
+      :title="t('language.selectLanguage')"
+      :aria-label="t('language.selectLanguage')"
       @click="toggleDropdown"
       @blur="handleBlur"
     >
@@ -58,7 +60,7 @@
 import { ref } from 'vue'
 import { useI18n } from '../composables/useI18n'
 
-const { currentLocale, setLocale, availableLocales, localeName } = useI18n()
+const { currentLocale, setLocale, availableLocales, localeName, t } = useI18n()
 
 const isDropdownOpen = ref(false)
 
@@ -91,39 +93,46 @@ const selectLanguage = (locale) => {
 <style scoped>
 .language-switcher {
   position: relative;
+  width: 100%;
 }
 
 .language-button {
+  width: 100%;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 0.875rem;
-  background: white;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
+  gap: var(--sp-3);
+  padding: var(--sp-2) var(--sp-3);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background-color 0.15s ease, color 0.15s ease;
   font-family: inherit;
   font-size: 0.875rem;
-  color: #334155;
+  color: var(--muted);
+  text-align: left;
 }
 
 .language-button:hover {
-  background: #f8fafc;
-  border-color: #cbd5e1;
+  background: var(--line-soft);
+  color: var(--ink);
 }
 
 .globe-icon {
-  color: #64748b;
+  color: currentColor;
   flex-shrink: 0;
 }
 
 .language-label {
+  flex: 1;
   font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .chevron {
-  color: #64748b;
+  color: currentColor;
   transition: transform 0.2s ease;
   flex-shrink: 0;
 }
@@ -132,15 +141,16 @@ const selectLanguage = (locale) => {
   transform: rotate(180deg);
 }
 
+/* Popover opens to the RIGHT of the sidebar so the rail doesn't clip it downward */
 .dropdown-menu {
   position: absolute;
-  top: calc(100% + 0.5rem);
-  right: 0;
+  left: calc(100% + 8px);
+  bottom: 0;
   min-width: 160px;
-  background: white;
-  border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
   z-index: 1000;
   overflow: hidden;
 }
@@ -150,8 +160,8 @@ const selectLanguage = (locale) => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.75rem;
-  padding: 0.75rem 1rem;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
   background: none;
   border: none;
   text-align: left;
@@ -160,16 +170,16 @@ const selectLanguage = (locale) => {
   font-family: inherit;
   font-size: 0.875rem;
   font-weight: 500;
-  color: #334155;
+  color: var(--text);
 }
 
 .dropdown-item:hover {
-  background: #f8fafc;
+  background: var(--line-soft);
 }
 
 .dropdown-item.active {
-  background: #eff6ff;
-  color: #2563eb;
+  background: var(--accent-soft);
+  color: var(--accent);
 }
 
 .language-name {
@@ -177,7 +187,39 @@ const selectLanguage = (locale) => {
 }
 
 .check-icon {
-  color: #2563eb;
+  color: var(--accent);
   flex-shrink: 0;
+}
+
+/* Collapsed rail: icon-only, centered */
+.app-shell.collapsed .language-switcher {
+  width: auto;
+}
+
+.app-shell.collapsed .language-button {
+  justify-content: center;
+  padding: var(--sp-2);
+}
+
+.app-shell.collapsed .language-label,
+.app-shell.collapsed .chevron {
+  display: none;
+}
+
+/* Narrow viewports force the same rail layout */
+@media (max-width: 1000px) {
+  .language-switcher {
+    width: auto;
+  }
+
+  .language-button {
+    justify-content: center;
+    padding: var(--sp-2);
+  }
+
+  .language-label,
+  .chevron {
+    display: none;
+  }
 }
 </style>

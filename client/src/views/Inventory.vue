@@ -225,33 +225,14 @@ export default {
 </script>
 
 <style scoped>
-.page-header {
-  margin-bottom: 1.5rem;
-}
+/* .page-header, .card, .card-header, .card-title, table, .badge, .loading,
+   and .error now come from the global styles in App.vue. Only view-specific
+   rules remain below. */
 
-.page-header h2 {
-  margin-bottom: 0.25rem;
-}
-
-.page-header p {
-  color: #64748b;
-  font-size: 0.875rem;
-}
-
+/* Global .card-header lacks a gap; needed so the title and search box
+   don't collide when the container narrows. */
 .card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1.5rem;
-  padding: 1.25rem 1.5rem;
-  border-bottom: 1px solid #e2e8f0;
-}
-
-.card-title {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #0f172a;
-  margin: 0;
+  gap: var(--sp-6);
 }
 
 .search-box {
@@ -263,29 +244,30 @@ export default {
 
 .search-icon {
   position: absolute;
-  left: 0.75rem;
+  left: var(--sp-3);
   width: 18px;
   height: 18px;
-  color: #94a3b8;
+  color: #94a3b8; /* slate-400: no token; between --muted and --line */
   pointer-events: none;
 }
 
 .search-input {
   width: 100%;
-  padding: 0.5rem 2.5rem 0.5rem 2.5rem;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
+  /* --sp-10 (40px) clears the absolutely-positioned icons on both sides */
+  padding: var(--sp-2) var(--sp-10);
+  border: 1px solid #cbd5e1; /* slate-300: no token equivalent */
+  border-radius: var(--radius);
   font-size: 0.875rem;
-  color: #0f172a;
-  background: #f8fafc;
+  color: var(--ink);
+  background: var(--bg);
   transition: all 0.2s;
 }
 
 .search-input:focus {
   outline: none;
-  border-color: #3b82f6;
-  background: white;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: var(--accent);
+  background: var(--surface);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12); /* focus ring from --accent */
 }
 
 .search-input::placeholder {
@@ -294,22 +276,22 @@ export default {
 
 .clear-search {
   position: absolute;
-  right: 0.5rem;
+  right: var(--sp-2);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.25rem;
+  padding: var(--sp-1);
   background: transparent;
   border: none;
-  border-radius: 4px;
+  border-radius: 4px; /* smaller than --radius by design (tiny icon button) */
   color: #94a3b8;
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .clear-search:hover {
-  background: #e2e8f0;
-  color: #64748b;
+  background: var(--line);
+  color: var(--muted);
 }
 
 .clear-search svg {
@@ -317,23 +299,12 @@ export default {
   height: 18px;
 }
 
-.loading,
-.error {
-  padding: 2rem;
-  text-align: center;
-  color: #64748b;
-}
-
-.error {
-  color: #ef4444;
-}
-
 .clickable-row {
   cursor: pointer;
-  transition: background-color 0.15s ease;
 }
 
+/* Scoped selector outranks the global tbody tr:hover, so no !important needed */
 .clickable-row:hover {
-  background: #eff6ff !important;
+  background: var(--accent-soft);
 }
 </style>

@@ -137,18 +137,18 @@ const getStockBadgeClass = (stockLevel) => {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgb(15 23 42 / .4);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 2000;
-  padding: 1rem;
+  padding: var(--sp-4);
 }
 
 .modal-container {
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
   max-width: 700px;
   width: 100%;
   max-height: 90vh;
@@ -161,59 +161,59 @@ const getStockBadgeClass = (stockLevel) => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.5rem;
-  border-bottom: 1px solid #e2e8f0;
+  padding: var(--sp-6);
+  border-bottom: 1px solid var(--line);
 }
 
 .modal-title {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #0f172a;
+  font-size: 1.125rem;
+  font-weight: 650;
+  color: var(--ink);
   letter-spacing: -0.025em;
 }
 
 .close-button {
   background: none;
   border: none;
-  color: #64748b;
+  color: var(--muted);
   cursor: pointer;
-  padding: 0.5rem;
+  padding: var(--sp-2);
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 6px;
-  transition: all 0.15s ease;
+  border-radius: var(--radius);
+  transition: background-color 0.15s ease, color 0.15s ease;
 }
 
 .close-button:hover {
-  background: #f1f5f9;
-  color: #0f172a;
+  background: var(--line-soft);
+  color: var(--ink);
 }
 
 .modal-body {
   flex: 1;
   overflow-y: auto;
-  padding: 2rem;
+  padding: var(--sp-6);
 }
 
 .product-header {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid #e2e8f0;
-  margin-bottom: 2rem;
+  gap: var(--sp-5);
+  padding-bottom: var(--sp-6);
+  border-bottom: 1px solid var(--line);
+  margin-bottom: var(--sp-6);
 }
 
 .product-icon {
   width: 64px;
   height: 64px;
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-  border-radius: 12px;
+  background: var(--accent);
+  border-radius: var(--radius-lg);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: #fff;
   flex-shrink: 0;
 }
 
@@ -225,20 +225,20 @@ const getStockBadgeClass = (stockLevel) => {
 .product-name {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #0f172a;
-  margin: 0 0 0.5rem 0;
+  color: var(--ink);
+  margin: 0 0 var(--sp-2) 0;
 }
 
 .product-sku {
   font-size: 0.875rem;
-  color: #64748b;
+  color: var(--muted);
   font-family: 'Monaco', 'Courier New', monospace;
 }
 
 .stock-badge {
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  font-size: 0.875rem;
+  padding: 2px var(--sp-2);
+  border-radius: 999px;
+  font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.025em;
@@ -263,13 +263,13 @@ const getStockBadgeClass = (stockLevel) => {
 .info-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.5rem;
+  gap: var(--sp-6);
 }
 
 .info-item {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: var(--sp-2);
 }
 
 .info-label {
@@ -277,40 +277,24 @@ const getStockBadgeClass = (stockLevel) => {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #64748b;
+  color: var(--muted);
 }
 
 .info-value {
   font-size: 0.938rem;
-  color: #0f172a;
+  color: var(--ink);
   font-weight: 500;
 }
 
 .modal-footer {
-  padding: 1.5rem;
-  border-top: 1px solid #e2e8f0;
+  padding: var(--sp-6);
+  border-top: 1px solid var(--line);
   display: flex;
   justify-content: flex-end;
-  gap: 0.75rem;
+  gap: var(--sp-3);
 }
 
-.btn-secondary {
-  padding: 0.625rem 1.25rem;
-  background: #f1f5f9;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  font-weight: 500;
-  font-size: 0.875rem;
-  color: #334155;
-  cursor: pointer;
-  transition: all 0.15s ease;
-  font-family: inherit;
-}
-
-.btn-secondary:hover {
-  background: #e2e8f0;
-  border-color: #cbd5e1;
-}
+/* .btn-secondary comes from the global stylesheet in App.vue */
 
 /* Modal transition animations */
 .modal-enter-active,
